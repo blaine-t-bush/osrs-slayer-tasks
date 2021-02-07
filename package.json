@@ -1,0 +1,26 @@
+{
+  "name": "osrs-slayer-tasks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.ts",
+  "scripts": {
+    "build": "babel src --out-dir dist --presets=@babel/typescript --extensions .ts",
+    "prepublish": "npm run build",
+    "test": "npm run build && mocha"
+  },
+  "author": "Blaine Bush <blaine.bush@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blaine-t-bush/osrs-slayer-tasks/issues"
+  },
+  "homepage": "https://github.com/blaine-t-bush/osrs-slayer-tasks#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.12.13",
+    "@babel/core": "^7.12.13",
+    "@babel/preset-typescript": "^7.12.13",
+    "@types/chai": "^4.2.14",
+    "@types/node": "^14.14.25",
+    "chai": "^4.3.0",
+    "mocha": "^8.2.1"
+  }
+}
