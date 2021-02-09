@@ -285,6 +285,31 @@ describe('Blocking and unblocking tasks at Duradel', () => {
         }
     });
 
+    it('should allow unblocking a task by index', () => {
+        let slayer = new index.Slayer;
+        slayer.completedQuests.shiloVillage = true;
+        slayer.combatLevel = 126;
+        slayer.slayerLevel = 99;
+        slayer.updateSlayerMaster('duradel');
+        slayer.completeAllQuests();
+        slayer.unlockAllRewards();
+        slayer.maxAllRequiredSkills();
+        slayer.unlockAllMiscellaneous();
+
+        slayer.blockTask('blackDemon');
+        slayer.unblockTaskByIndex(0);
+
+        expect(slayer.blockedTaskCount).to.equal(0);
+        expect(slayer.blockList.blackDemon).to.equal(false);
+        expect(slayer.blockArray).to.deep.equal([null, null, null, null, null, null]);
+
+        let tasks = slayer.tasks;
+        for (let i = 0; i < tasks.length; i++) {
+            let task = tasks[i];
+            expect(task.unblocked).to.equal(true);
+        }
+    });
+
     it('should preserve order in blockArray', () => {
         let slayer = new index.Slayer;
         slayer.completedQuests.shiloVillage = true;

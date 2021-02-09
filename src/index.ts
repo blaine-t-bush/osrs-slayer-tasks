@@ -1207,6 +1207,21 @@ class Slayer {
         return true;
     }
 
+    unblockTaskByIndex(index: number) {
+        // Verify that index is valid.
+        if (index < 0 || index > 5) {
+            return false;
+        }
+
+        // Verify that given index has an associated monster.
+        let monsterId = this.blockArray[index];
+        if (monsterId === null) {
+            return false;
+        }
+
+        return this.unblockTask(monsterId);
+    }
+
     toggleBlock(monsterId: string): boolean {
         // Verify that monsterId exists on the blockList object.
         if (!this.blockList.hasOwnProperty(monsterId)) {
