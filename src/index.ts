@@ -694,6 +694,8 @@ class Slayer {
         zombie: boolean,
     };
 
+    blockArray: Array<string>;
+
     questPoints: number;
 
     ignoreCombatLevelReqs: boolean;
@@ -869,6 +871,15 @@ class Slayer {
             wyrm: false,
             zombie: false,
         };
+
+        this.blockArray = [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+        ];
 
         this.questPoints = 0;
 
@@ -1138,7 +1149,7 @@ class Slayer {
         return availableBlockCount;
     }
 
-    blockTask(monsterId: string): boolean {
+    blockTask(monsterId: string, index: number = null): boolean {
         // Verify that block list isn't already full.
         if (this.blockedTaskCount >= this.availableBlockCount) {
             return false;
@@ -1154,7 +1165,24 @@ class Slayer {
             return false;
         }
 
+        // Update the blockList object and the blockArray array.
         this.blockList[monsterId] = true;
+        if (index === null) {
+            // No index specified. Find first available null value in array and replace it with monsterId.
+            for (let i = 0; i < this.blockArray.length; i++) {
+                if (this.blockArray[i] === null) {
+                    this.blockArray[i] = monsterId;
+                    break;
+                }
+            }
+        } else {
+            // Index is specified. If value is null, replace it with monsterId. If value is not null, unblock it and then replace it with monsterId.
+            if (this.blockArray[index] !== null) {
+                this.unblockTask(this.blockArray[index]);
+            }
+            this.blockArray[index] = monsterId;
+        }
+
         return true;
     }
 
@@ -1169,7 +1197,13 @@ class Slayer {
             return false;
         }
 
+        // Update the blockList object and the blockArray array.
         this.blockList[monsterId] = false;
+        for (let i = 0; i < this.blockArray.length; i++) {
+            if (this.blockArray[i] === monsterId) {
+                this.blockArray[i] = null;
+            }
+        }
         return true;
     }
 

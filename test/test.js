@@ -247,6 +247,7 @@ describe('Blocking and unblocking tasks at Duradel', () => {
 
         expect(slayer.blockedTaskCount).to.equal(1);
         expect(slayer.blockList.blackDemon).to.equal(true);
+        expect(slayer.blockArray).to.deep.equal(['blackDemon', null, null, null, null, null]);
 
         let tasks = slayer.tasks;
         for (let i = 0; i < tasks.length; i++) {
@@ -275,12 +276,31 @@ describe('Blocking and unblocking tasks at Duradel', () => {
 
         expect(slayer.blockedTaskCount).to.equal(0);
         expect(slayer.blockList.blackDemon).to.equal(false);
+        expect(slayer.blockArray).to.deep.equal([null, null, null, null, null, null]);
 
         let tasks = slayer.tasks;
         for (let i = 0; i < tasks.length; i++) {
             let task = tasks[i];
             expect(task.unblocked).to.equal(true);
         }
+    });
+
+    it('should preserve order in blockArray', () => {
+        let slayer = new index.Slayer;
+        slayer.completedQuests.shiloVillage = true;
+        slayer.combatLevel = 126;
+        slayer.slayerLevel = 99;
+        slayer.updateSlayerMaster('duradel');
+        slayer.completeAllQuests();
+        slayer.unlockAllRewards();
+        slayer.maxAllRequiredSkills();
+        slayer.unlockAllMiscellaneous();
+
+        slayer.blockTask('blackDemon');
+        slayer.blockTask('blueDragon');
+        slayer.unblockTask('blackDemon');
+
+        expect(slayer.blockArray).to.deep.equal([null, 'blueDragon', null, null, null, null]);
     });
 
     it('shouldn\'t allow unblocking an already unblocked task', () => {
@@ -298,6 +318,7 @@ describe('Blocking and unblocking tasks at Duradel', () => {
 
         expect(slayer.blockedTaskCount).to.equal(0);
         expect(slayer.blockList.blackDemon).to.equal(false);
+        expect(slayer.blockArray).to.deep.equal([null, null, null, null, null, null]);
 
         let tasks = slayer.tasks;
         for (let i = 0; i < tasks.length; i++) {
@@ -331,6 +352,7 @@ describe('Blocking and unblocking tasks at Duradel', () => {
         expect(slayer.blockList.ironDragon).to.equal(true);
         expect(slayer.blockList.nechryael).to.equal(true);
         expect(slayer.blockList.blueDragon).to.equal(true);
+        expect(slayer.blockArray).to.deep.equal(['bloodveld', 'waterfiend', 'suqah', 'ironDragon', 'nechryael', 'blueDragon']);
 
         slayer.blockTask('steelDragon');
         expect(slayer.blockedTaskCount).to.equal(6);
@@ -341,6 +363,7 @@ describe('Blocking and unblocking tasks at Duradel', () => {
         expect(slayer.blockList.ironDragon).to.equal(true);
         expect(slayer.blockList.nechryael).to.equal(true);
         expect(slayer.blockList.blueDragon).to.equal(true);
+        expect(slayer.blockArray).to.deep.equal(['bloodveld', 'waterfiend', 'suqah', 'ironDragon', 'nechryael', 'blueDragon']);
     });
 
     it('should have task probabilities sum to 1', () => {
