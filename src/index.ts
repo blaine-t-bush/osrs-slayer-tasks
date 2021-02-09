@@ -47,7 +47,7 @@ const slayerMonsters: Array<{ id: string, name: string }> = [
     { id: 'dog', name: 'Dogs' },
     { id: 'drake', name: 'Drakes' },
     { id: 'dustDevil', name: 'Dust devils' },
-    { id: 'dwarve', name: 'Dwarves' },
+    { id: 'dwarf', name: 'Dwarves' },
     { id: 'earthWarrior', name: 'Earth warriors' },
     { id: 'elf', name: 'Elves' },
     { id: 'ent', name: 'Ents' },
@@ -127,7 +127,7 @@ const slayerMonsters: Array<{ id: string, name: string }> = [
     { id: 'zombie', name: 'Zombies' },
 ];
 
-const quests: Array<{ id: string, name: string }> = [
+const slayerQuests: Array<{ id: string, name: string }> = [
     { id: 'boneVoyage', name: 'Bone Voyage' },
     { id: 'cabinFever', name: 'Cabin Fever' },
     { id: 'contact', name: 'Contact!' },
@@ -152,6 +152,17 @@ const quests: Array<{ id: string, name: string }> = [
     { id: 'rumDeal', name: 'Rum Deal' },
     { id: 'skippyAndTheMogres', name: 'Skippy and the Mogres' },
     { id: 'shiloVillage', name: 'Shilo Village' },
+];
+
+const slayerRewards: Array<{ id: string, name: string, description: string }> = [
+    { id: 'seeingRed', name: 'Seeing red', description: 'Konar, Duradel, and Nieve will be able to assign you red dragons' },
+    { id: 'iHopeYouMithMe', name: 'I hope you mith me', description: 'Konar, Duradel, and Nieve will be able to assign you mithril dragons' },
+    { id: 'watchTheBirdie', name: 'Watch the birdie', description: 'Konar, Duradel, Nieve, and Chaeldar will be able to assign you aviansies' },
+    { id: 'hotStuff', name: 'Hot stuff', description: 'Duradel, Nieve, and Chaeldar will be able to assign you TzHaar' },
+    { id: 'reptileGotRipped', name: 'Reptile got ripped', description: 'Konar, Duradel, Nieve, and Chaeldar will be able to assign you lizardmen' },
+    { id: 'likeABoss', name: 'Like a boss', description: 'Konar, Duradel, Krystilia, and Nieve will be able to assign you boss monsters' },
+    { id: 'basilocked', name: 'Basilocked', description: 'Konar, Duradel, and Nieve will be able to assign you basilisks' },
+    { id: 'actualVampyreSlayer', name: 'Actual Vampyre Slayer', description: 'Konar, Duradel, Nieve, and Chaeldar will be able to assign you Vampyres' },
 ];
 
 const slayerTasks: Array<{ id: number, masterId: string, monsterId: string, combatReq: number, slayerReq: number, questReqId: string, unlockReqId: string, agilityReq: number, defenceReq: number, firemakingReq: number, magicReq: number, strengthOrAgilityReq: number, ancientCavernReq: boolean, weight: number }> = [
@@ -282,8 +293,8 @@ const slayerTasks: Array<{ id: number, masterId: string, monsterId: string, comb
     { id: 125, masterId: 'konar', monsterId: 'dustDevil', combatReq: 70, slayerReq: 65, questReqId: 'desertTreasure', unlockReqId: null, agilityReq: null, defenceReq: null, firemakingReq: null, magicReq: null, strengthOrAgilityReq: null, ancientCavernReq: false, weight: 6 },
     { id: 126, masterId: 'nieve', monsterId: 'dustDevil', combatReq: 70, slayerReq: 65, questReqId: 'desertTreasure', unlockReqId: null, agilityReq: null, defenceReq: null, firemakingReq: null, magicReq: null, strengthOrAgilityReq: null, ancientCavernReq: false, weight: 6 },
     { id: 127, masterId: 'duradel', monsterId: 'dustDevil', combatReq: null, slayerReq: 65, questReqId: 'desertTreasure', unlockReqId: null, agilityReq: null, defenceReq: null, firemakingReq: null, magicReq: null, strengthOrAgilityReq: null, ancientCavernReq: false, weight: 5 },
-    { id: 128, masterId: 'turael', monsterId: 'dwarve', combatReq: 6, slayerReq: null, questReqId: null, unlockReqId: null, agilityReq: null, defenceReq: null, firemakingReq: null, magicReq: null, strengthOrAgilityReq: null, ancientCavernReq: false, weight: 7 },
-    { id: 129, masterId: 'spria', monsterId: 'dwarve', combatReq: 6, slayerReq: null, questReqId: null, unlockReqId: null, agilityReq: null, defenceReq: null, firemakingReq: null, magicReq: null, strengthOrAgilityReq: null, ancientCavernReq: false, weight: 7 },
+    { id: 128, masterId: 'turael', monsterId: 'dwarf', combatReq: 6, slayerReq: null, questReqId: null, unlockReqId: null, agilityReq: null, defenceReq: null, firemakingReq: null, magicReq: null, strengthOrAgilityReq: null, ancientCavernReq: false, weight: 7 },
+    { id: 129, masterId: 'spria', monsterId: 'dwarf', combatReq: 6, slayerReq: null, questReqId: null, unlockReqId: null, agilityReq: null, defenceReq: null, firemakingReq: null, magicReq: null, strengthOrAgilityReq: null, ancientCavernReq: false, weight: 7 },
     { id: 130, masterId: 'krystilia', monsterId: 'earthWarrior', combatReq: null, slayerReq: null, questReqId: null, unlockReqId: null, agilityReq: null, defenceReq: null, firemakingReq: null, magicReq: null, strengthOrAgilityReq: null, ancientCavernReq: false, weight: 6 },
     { id: 131, masterId: 'mazchna', monsterId: 'earthWarrior', combatReq: 35, slayerReq: null, questReqId: null, unlockReqId: null, agilityReq: null, defenceReq: null, firemakingReq: null, magicReq: null, strengthOrAgilityReq: null, ancientCavernReq: false, weight: 6 },
     { id: 132, masterId: 'vannaka', monsterId: 'earthWarrior', combatReq: 35, slayerReq: null, questReqId: null, unlockReqId: null, agilityReq: 15, defenceReq: null, firemakingReq: null, magicReq: null, strengthOrAgilityReq: null, ancientCavernReq: false, weight: 6 },
@@ -549,7 +560,7 @@ class Slayer {
         skippyAndTheMogres: boolean,
     };
 
-    unlockedSlayerRewards: {
+    unlockedRewards: {
         seeingRed: boolean,
         iHopeYouMithMe: boolean,
         watchTheBirdie: boolean,
@@ -564,9 +575,124 @@ class Slayer {
         ancientCavern: boolean
     };
 
-    ignoreCombatLevelReqs: boolean;
+    blockList: {
+        aberrantSpectre: boolean,
+        abyssalDemon: boolean,
+        adamantDragon: boolean,
+        ankou: boolean,
+        aviansie: boolean,
+        bandit: boolean,
+        banshee: boolean,
+        basilisk: boolean,
+        bat: boolean,
+        bear: boolean,
+        bird: boolean,
+        blackDemon: boolean,
+        blackDragon: boolean,
+        blackKnight: boolean,
+        bloodveld: boolean,
+        blueDragon: boolean,
+        boss: boolean,
+        brineRat: boolean,
+        bronzeDragon: boolean,
+        catablepon: boolean,
+        caveBug: boolean,
+        caveCrawler: boolean,
+        caveHorror: boolean,
+        caveKraken: boolean,
+        caveSlime: boolean,
+        chaosDruid: boolean,
+        cockatrice: boolean,
+        cow: boolean,
+        crawlingHand: boolean,
+        crocodile: boolean,
+        dagannoth: boolean,
+        darkBeast: boolean,
+        darkWarrior: boolean,
+        dog: boolean,
+        drake: boolean,
+        dustDevil: boolean,
+        dwarf: boolean,
+        earthWarrior: boolean,
+        elf: boolean,
+        ent: boolean,
+        feverSpider: boolean,
+        fireGiant: boolean,
+        fleshCrawler: boolean,
+        fossilIslandWyvern: boolean,
+        gargoyle: boolean,
+        ghost: boolean,
+        ghoul: boolean,
+        goblin: boolean,
+        greaterDemon: boolean,
+        greenDragon: boolean,
+        harpieBugSwarm: boolean,
+        hellhound: boolean,
+        hillGiant: boolean,
+        hobgoblin: boolean,
+        hydra: boolean,
+        iceGiant: boolean,
+        iceWarrior: boolean,
+        icefiend: boolean,
+        infernalMage: boolean,
+        ironDragon: boolean,
+        jelly: boolean,
+        jungleHorror: boolean,
+        kalphite: boolean,
+        killerwatt: boolean,
+        kurask: boolean,
+        lavaDragon: boolean,
+        lesserDemon: boolean,
+        lizardman: boolean,
+        lizard: boolean,
+        magicAxe: boolean,
+        mammoth: boolean,
+        minionOfScabaras: boolean,
+        minotaur: boolean,
+        mithrilDragon: boolean,
+        mogre: boolean,
+        molanisk: boolean,
+        monkey: boolean,
+        mossGiant: boolean,
+        mutatedZygomite: boolean,
+        nechryael: boolean,
+        ogre: boolean,
+        otherworldlyBeing: boolean,
+        pirate: boolean,
+        pyrefiend: boolean,
+        rat: boolean,
+        redDragon: boolean,
+        revenant: boolean,
+        rockslug: boolean,
+        rogue: boolean,
+        runeDragon: boolean,
+        scorpion: boolean,
+        seaSnake: boolean,
+        shade: boolean,
+        shadowWarrior: boolean,
+        skeletalWyvern: boolean,
+        skeleton: boolean,
+        smokeDevil: boolean,
+        sourhog: boolean,
+        spider: boolean,
+        spiritualCreature: boolean,
+        steelDragon: boolean,
+        suqah: boolean,
+        terrorDog: boolean,
+        troll: boolean,
+        turoth: boolean,
+        tzHaar: boolean,
+        vampyre: boolean,
+        wallBeast: boolean,
+        waterfiend: boolean,
+        werewolf: boolean,
+        wildernessBoss: boolean,
+        wolf: boolean,
+        wyrm: boolean,
+        zombie: boolean,
+    };
 
-    blockedTasks: Array<string>;
+    ignoreCombatLevelReqs: boolean;
     
     constructor() {
         // Initialize a character with base stats, no unlocks, and the lowest-level slayer master.
@@ -606,7 +732,7 @@ class Slayer {
             skippyAndTheMogres: false,
         };
 
-        this.unlockedSlayerRewards = {
+        this.unlockedRewards = {
             seeingRed: false,
             iHopeYouMithMe: false,
             watchTheBirdie: false,
@@ -621,9 +747,124 @@ class Slayer {
             ancientCavern: false,
         };
 
-        this.ignoreCombatLevelReqs = false;
+        this.blockList = {
+            aberrantSpectre: false,
+            abyssalDemon: false,
+            adamantDragon: false,
+            ankou: false,
+            aviansie: false,
+            bandit: false,
+            banshee: false,
+            basilisk: false,
+            bat: false,
+            bear: false,
+            bird: false,
+            blackDemon: false,
+            blackDragon: false,
+            blackKnight: false,
+            bloodveld: false,
+            blueDragon: false,
+            boss: false,
+            brineRat: false,
+            bronzeDragon: false,
+            catablepon: false,
+            caveBug: false,
+            caveCrawler: false,
+            caveHorror: false,
+            caveKraken: false,
+            caveSlime: false,
+            chaosDruid: false,
+            cockatrice: false,
+            cow: false,
+            crawlingHand: false,
+            crocodile: false,
+            dagannoth: false,
+            darkBeast: false,
+            darkWarrior: false,
+            dog: false,
+            drake: false,
+            dustDevil: false,
+            dwarf: false,
+            earthWarrior: false,
+            elf: false,
+            ent: false,
+            feverSpider: false,
+            fireGiant: false,
+            fleshCrawler: false,
+            fossilIslandWyvern: false,
+            gargoyle: false,
+            ghost: false,
+            ghoul: false,
+            goblin: false,
+            greaterDemon: false,
+            greenDragon: false,
+            harpieBugSwarm: false,
+            hellhound: false,
+            hillGiant: false,
+            hobgoblin: false,
+            hydra: false,
+            iceGiant: false,
+            iceWarrior: false,
+            icefiend: false,
+            infernalMage: false,
+            ironDragon: false,
+            jelly: false,
+            jungleHorror: false,
+            kalphite: false,
+            killerwatt: false,
+            kurask: false,
+            lavaDragon: false,
+            lesserDemon: false,
+            lizardman: false,
+            lizard: false,
+            magicAxe: false,
+            mammoth: false,
+            minionOfScabaras: false,
+            minotaur: false,
+            mithrilDragon: false,
+            mogre: false,
+            molanisk: false,
+            monkey: false,
+            mossGiant: false,
+            mutatedZygomite: false,
+            nechryael: false,
+            ogre: false,
+            otherworldlyBeing: false,
+            pirate: false,
+            pyrefiend: false,
+            rat: false,
+            redDragon: false,
+            revenant: false,
+            rockslug: false,
+            rogue: false,
+            runeDragon: false,
+            scorpion: false,
+            seaSnake: false,
+            shade: false,
+            shadowWarrior: false,
+            skeletalWyvern: false,
+            skeleton: false,
+            smokeDevil: false,
+            sourhog: false,
+            spider: false,
+            spiritualCreature: false,
+            steelDragon: false,
+            suqah: false,
+            terrorDog: false,
+            troll: false,
+            turoth: false,
+            tzHaar: false,
+            vampyre: false,
+            wallBeast: false,
+            waterfiend: false,
+            werewolf: false,
+            wildernessBoss: false,
+            wolf: false,
+            wyrm: false,
+            zombie: false,
+        };
 
-        this.blockedTasks = [];
+        this.ignoreCombatLevelReqs = false;
 
         this.slayerMaster = slayerMasters.find(master => master.id === 'turael');
     }
@@ -737,19 +978,108 @@ class Slayer {
     }
 
     questNameById(questId: string): string {
-        let quest = quests.find(quest => quest.id === questId);
+        let quest = slayerQuests.find(quest => quest.id === questId);
         return quest.name;
     }
 
+    rewardNameById(rewardId: string): string {
+        let reward = slayerRewards.find(reward => reward.id === rewardId);
+        return reward.name;
+    }
+
+    completeQuest(questId: string): boolean {
+        // Verify that questId exists on the completedQuests object before attempting to update.
+        if (this.completedQuests.hasOwnProperty(questId)) {
+            this.completedQuests[questId] = true;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    uncompleteQuest(questId: string): boolean {
+        // Verify that questId exists on the completedQuests object before attempting to update.
+        if (this.completedQuests.hasOwnProperty(questId)) {
+            this.completedQuests[questId] = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    toggleQuest(questId: string): boolean {
+        // Verify that questId exists on the completedQuests object before attempting to update.
+        if (this.completedQuests.hasOwnProperty(questId)) {
+            if (this.completedQuests[questId]) {
+                return this.uncompleteQuest(questId);
+            } else {
+                return this.completeQuest(questId);
+            }
+        } else {
+            return false;
+        }
+    }
+
     completeAllQuests() {
-        for (const key in this.completedQuests) {
-            this.completedQuests[key] = true;
+        for (const questId in this.completedQuests) {
+            this.completeQuest(questId);
+        }
+    }
+
+    uncompleteAllQuests() {
+        for (const questId in this.completedQuests) {
+            this.uncompleteQuest(questId);
+        }
+    }
+
+    unlockReward(rewardId: string): boolean {
+        // Verify that rewardId exists on the unlockedRewards object before attempting to update.
+        if (this.unlockedRewards.hasOwnProperty(rewardId)) {
+            this.unlockedRewards[rewardId] = true;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    lockReward(rewardId: string): boolean {
+        // Verify that rewardId exists on the unlockedRewards object before attempting to update.
+        if (this.unlockedRewards.hasOwnProperty(rewardId)) {
+            this.unlockedRewards[rewardId] = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    toggleReward(rewardId: string): boolean {
+        // Verify that rewardId exists on the unlockedRewards object before attempting to update.
+        if (this.unlockedRewards.hasOwnProperty(rewardId)) {
+            if (this.unlockedRewards[rewardId]) {
+                return this.lockReward(rewardId);
+            } else {
+                return this.unlockReward(rewardId);
+            }
+        } else {
+            return false;
         }
     }
 
     unlockAllRewards() {
-        for (const key in this.unlockedSlayerRewards) {
-            this.unlockedSlayerRewards[key] = true;
+        for (const rewardId in this.unlockedRewards) {
+            this.unlockReward(rewardId);
+        }
+    }
+
+    lockAllRewards() {
+        for (const rewardId in this.unlockedRewards) {
+            this.lockReward(rewardId);
+        }
+    }
+
+    unlockAllMiscellaneous() {
+        for (const miscId in this.miscellaneousUnlocks) {
+            this.miscellaneousUnlocks[miscId] = true;
         }
     }
 
@@ -761,6 +1091,73 @@ class Slayer {
         this.firemakingLevel = 99;
         this.magicLevel = 99;
         this.strengthLevel = 99;
+    }
+
+    get blockedTaskCount(): number {
+        let blockedTaskCount = 0;
+        for (const monsterId in this.blockList) {
+            if (this.blockList[monsterId]) {
+                blockedTaskCount++;
+            }
+        }
+
+        return blockedTaskCount;
+    }
+
+    blockTask(monsterId: string): boolean {
+        // Verify that block list isn't already full.
+        if (this.blockedTaskCount >= 5) {
+            return false;
+        }
+
+        // Verify that monsterId exists on the blockList object.
+        if (!this.blockList.hasOwnProperty(monsterId)) {
+            return false;
+        }
+
+        // Verify that task isn't already blocked.
+        if (this.blockList[monsterId]) {
+            return false;
+        }
+
+        this.blockList[monsterId] = true;
+        return true;
+    }
+
+    unblockTask(monsterId: string): boolean {
+        // Verify that monsterId exists on the blockList object.
+        if (!this.blockList.hasOwnProperty(monsterId)) {
+            return false;
+        }
+
+        // Verify that task isn't already unblocked.
+        if (!this.blockList[monsterId]) {
+            return false;
+        }
+
+        this.blockList[monsterId] = false;
+        return true;
+    }
+
+    toggleBlock(monsterId: string): boolean {
+        // Verify that monsterId exists on the blockList object.
+        if (!this.blockList.hasOwnProperty(monsterId)) {
+            return false;
+        }
+
+        if (this.blockList[monsterId]) {
+            return this.unblockTask(monsterId);
+        } else {
+            return this.blockTask(monsterId);
+        }
+    }
+
+    unblockAllTasks(): boolean {
+        for (const monsterId in this.blockList) {
+            this.unblockTask(monsterId);
+        }
+
+        return true;
     }
 
     updateSlayerMaster(slayerMasterIdOrName: string) {
@@ -839,7 +1236,7 @@ class Slayer {
         }, this);
 
         // Third, filter based on unlocked slayer rewards:
-        tasks = tasks.filter(task => task.unlockReqId === null || this.unlockedSlayerRewards[task.unlockReqId]);
+        tasks = tasks.filter(task => task.unlockReqId === null || this.unlockedRewards[task.unlockReqId]);
 
         // Finally, filter based on other miscellaneous requirements:
         tasks = tasks.filter(task => !task.ancientCavernReq || this.miscellaneousUnlocks.ancientCavern);
@@ -852,7 +1249,7 @@ class Slayer {
         let tasks = this.masterTasks;
 
         // Filter out all tasks that are on the blocked list.
-        tasks = tasks.filter(task => !this.blockedTasks.includes(task.monsterId));
+        tasks = tasks.filter(task => !this.blockList[task.monsterId]);
 
         return tasks;
     }
@@ -933,5 +1330,10 @@ class Slayer {
 }
 
 module.exports = {
-    Slayer,
+    Slayer: Slayer,
+    slayerMasters: slayerMasters,
+    slayerMonsters: slayerMonsters,
+    slayerQuests: slayerQuests,
+    slayerRewards: slayerRewards,
+    slayerTasks: slayerTasks,
 }

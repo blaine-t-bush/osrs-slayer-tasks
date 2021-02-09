@@ -1,8 +1,8 @@
 {
   "name": "osrs-slayer-tasks",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "description": "",
-  "main": "./dist/index.ts",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist --presets=@babel/typescript --extensions .ts",
     "prepublish": "npm run build",

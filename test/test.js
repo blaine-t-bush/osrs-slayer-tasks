@@ -199,7 +199,7 @@ describe('Switching to Duradel with all requirements', () => {
         slayer.completeAllQuests();
         slayer.unlockAllRewards();
         slayer.maxAllRequiredSkills();
-        slayer.miscellaneousUnlocks.ancientCavern = true;
+        slayer.unlockAllMiscellaneous();
 
         let tasks = slayer.tasks;
         for (let i = 0; i < tasks.length; i++) {
@@ -216,7 +216,7 @@ describe('Switching to Duradel with all requirements', () => {
         slayer.updateSlayerMaster('duradel');
         slayer.completeAllQuests();
         slayer.unlockAllRewards();
-        slayer.miscellaneousUnlocks.ancientCavern = true;
+        slayer.unlockAllMiscellaneous();
 
         let tasks = slayer.tasks;
         let totalProbability = 0;
@@ -228,6 +228,187 @@ describe('Switching to Duradel with all requirements', () => {
         expect(totalProbability).to.be.a('number');
         expect(totalProbability).to.be.lessThan(1 + epsilon);
         expect(totalProbability).to.be.greaterThan(1 - epsilon);
+    });
+});
+
+describe('Blocking and unblocking tasks at Duradel', () => {
+    it('should allow blocking a task', () => {
+        let slayer = new index.Slayer;
+        slayer.completedQuests.shiloVillage = true;
+        slayer.combatLevel = 126;
+        slayer.slayerLevel = 99;
+        slayer.updateSlayerMaster('duradel');
+        slayer.completeAllQuests();
+        slayer.unlockAllRewards();
+        slayer.maxAllRequiredSkills();
+        slayer.unlockAllMiscellaneous();
+
+        slayer.blockTask('blackDemon');
+
+        expect(slayer.blockedTaskCount).to.equal(1);
+        expect(slayer.blockList.blackDemon).to.equal(true);
+
+        let tasks = slayer.tasks;
+        for (let i = 0; i < tasks.length; i++) {
+            let task = tasks[i];
+            if (task.monsterId === 'blackDemon') {
+                expect(task.unblocked).to.equal(false);
+            } else {
+                expect(task.unblocked).to.equal(true);
+            }
+        }
+    });
+
+    it('should allow unblocking a task', () => {
+        let slayer = new index.Slayer;
+        slayer.completedQuests.shiloVillage = true;
+        slayer.combatLevel = 126;
+        slayer.slayerLevel = 99;
+        slayer.updateSlayerMaster('duradel');
+        slayer.completeAllQuests();
+        slayer.unlockAllRewards();
+        slayer.maxAllRequiredSkills();
+        slayer.unlockAllMiscellaneous();
+
+        slayer.blockTask('blackDemon');
+        slayer.unblockTask('blackDemon');
+
+        expect(slayer.blockedTaskCount).to.equal(0);
+        expect(slayer.blockList.blackDemon).to.equal(false);
+
+        let tasks = slayer.tasks;
+        for (let i = 0; i < tasks.length; i++) {
+            let task = tasks[i];
+            expect(task.unblocked).to.equal(true);
+        }
+    });
+
+    it('shouldn\'t allow unblocking an already unblocked task', () => {
+        let slayer = new index.Slayer;
+        slayer.completedQuests.shiloVillage = true;
+        slayer.combatLevel = 126;
+        slayer.slayerLevel = 99;
+        slayer.updateSlayerMaster('duradel');
+        slayer.completeAllQuests();
+        slayer.unlockAllRewards();
+        slayer.maxAllRequiredSkills();
+        slayer.unlockAllMiscellaneous();
+
+        slayer.unblockTask('blackDemon');
+
+        expect(slayer.blockedTaskCount).to.equal(0);
+        expect(slayer.blockList.blackDemon).to.equal(false);
+
+        let tasks = slayer.tasks;
+        for (let i = 0; i < tasks.length; i++) {
+            let task = tasks[i];
+            expect(task.unblocked).to.equal(true);
+        }
+    });
+
+    it('shouldn\'t allow blocking more than 5 tasks', () => {
+        let slayer = new index.Slayer;
+        slayer.completedQuests.shiloVillage = true;
+        slayer.combatLevel = 126;
+        slayer.slayerLevel = 99;
+        slayer.updateSlayerMaster('duradel');
+        slayer.completeAllQuests();
+        slayer.unlockAllRewards();
+        slayer.maxAllRequiredSkills();
+        slayer.unlockAllMiscellaneous();
+
+        slayer.blockTask('bloodveld');
+        slayer.blockTask('waterfiend');
+        slayer.blockTask('suqah');
+        slayer.blockTask('ironDragon');
+        slayer.blockTask('nechryael');
+
+        expect(slayer.blockedTaskCount).to.equal(5);
+        expect(slayer.blockList.bloodveld).to.equal(true);
+        expect(slayer.blockList.waterfiend).to.equal(true);
+        expect(slayer.blockList.suqah).to.equal(true);
+        expect(slayer.blockList.ironDragon).to.equal(true);
+        expect(slayer.blockList.nechryael).to.equal(true);
+
+        slayer.blockTask('steelDragon');
+        expect(slayer.blockedTaskCount).to.equal(5);
+        expect(slayer.blockList.steelDragon).to.equal(false);
+        expect(slayer.blockList.bloodveld).to.equal(true);
+        expect(slayer.blockList.waterfiend).to.equal(true);
+        expect(slayer.blockList.suqah).to.equal(true);
+        expect(slayer.blockList.ironDragon).to.equal(true);
+        expect(slayer.blockList.nechryael).to.equal(true);
+    });
+
+    it('should have task probabilities sum to 1', () => {
+        let slayer = new index.Slayer;
+        slayer.completedQuests.shiloVillage = true;
+        slayer.combatLevel = 126;
+        slayer.slayerLevel = 99;
+        slayer.updateSlayerMaster('duradel');
+        slayer.completeAllQuests();
+        slayer.unlockAllRewards();
+        slayer.unlockAllMiscellaneous();
+
+        let tasks = slayer.tasks;
+        let totalProbability = 0;
+        for (let i = 0; i < tasks.length; i++) {
+            let task = tasks[i];
+            totalProbability += task.probability;
+        }
+
+        expect(totalProbability).to.be.a('number');
+        expect(totalProbability).to.be.lessThan(1 + epsilon);
+        expect(totalProbability).to.be.greaterThan(1 - epsilon);
+    });
+});
+
+// Verify that slayerMonsters and slayerTasks match:
+//  slayerMonsters doesn't contain any IDs not in slayerTasks
+
+describe('Data', () => {
+    it('keys in blockList should match IDs in slayerMonsters', () => {
+        let slayer = new index.Slayer;
+        const slayerMonsters = index.slayerMonsters;
+        
+        for (const monsterId in slayer.blockList) {
+            let isContained = slayerMonsters.some(monster => monster.id === monsterId);
+            expect(isContained).to.equal(true);
+        }
+    });
+
+    it('lookup monsterNameById() should work for all tasks', () => {
+        let slayer = new index.Slayer;
+        const slayerMonsters = index.slayerMonsters;
+        const slayerTasks = index.slayerTasks;
+
+        for (let i = 0; i < slayerTasks.length; i++) {
+            let monsterId = slayerTasks[i].monsterId;
+            let monsterName = slayer.monsterNameById(monsterId);
+            expect(monsterName).to.be.a('string');
+        }
+    });
+
+    it('slayerMonsters only contains monsters that are in slayerTasks', () => {
+        const slayerMonsters = index.slayerMonsters;
+        const slayerTasks = index.slayerTasks;
+
+        for (let i = 0; i < slayerMonsters.length; i++) {
+            let monsterId = slayerMonsters[i].id;
+            let isContained = slayerTasks.some(task => task.monsterId === monsterId);
+            expect(isContained).to.equal(true);
+        }
+    });
+    
+    it('slayerTasks only contains monsters that are in slayerMonsters', () => {
+        const slayerMonsters = index.slayerMonsters;
+        const slayerTasks = index.slayerTasks;
+
+        for (let i = 0; i < slayerTasks.length; i++) {
+            let monsterId = slayerTasks[i].monsterId;
+            let isContained = slayerMonsters.some(monster => monster.id === monsterId);
+            expect(isContained).to.equal(true);
+        }
     });
 });
 
