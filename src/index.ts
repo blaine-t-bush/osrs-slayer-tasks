@@ -1027,12 +1027,16 @@ class Slayer {
     }
 
     completeAllQuests() {
+        this.questPoints = 279;
+
         for (const questId in this.completedQuests) {
             this.completeQuest(questId);
         }
     }
 
     uncompleteAllQuests() {
+        this.questPoints = 0;
+        
         for (const questId in this.completedQuests) {
             this.uncompleteQuest(questId);
         }
