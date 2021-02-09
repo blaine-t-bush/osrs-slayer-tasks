@@ -558,6 +558,7 @@ class Slayer {
         royalTrouble: boolean,
         rumDeal: boolean,
         skippyAndTheMogres: boolean,
+        shiloVillage: boolean,
     };
 
     unlockedRewards: {
@@ -733,6 +734,7 @@ class Slayer {
             royalTrouble: false,
             rumDeal: false,
             skippyAndTheMogres: false,
+            shiloVillage: false,
         };
 
         this.unlockedRewards = {

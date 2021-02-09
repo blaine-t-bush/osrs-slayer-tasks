@@ -370,6 +370,16 @@ describe('Blocking and unblocking tasks at Duradel', () => {
 //  slayerMonsters doesn't contain any IDs not in slayerTasks
 
 describe('Data', () => {
+    it('keys in completedQuests should match IDs in slayerQuests', () => {
+        let slayer = new index.Slayer;
+        const slayerQuests = index.slayerQuests;
+        
+        for (const questId in slayer.completedQuests) {
+            let isContained = slayerQuests.some(quest => quest.id === questId);
+            expect(isContained).to.equal(true);
+        }
+    });
+
     it('keys in blockList should match IDs in slayerMonsters', () => {
         let slayer = new index.Slayer;
         const slayerMonsters = index.slayerMonsters;
