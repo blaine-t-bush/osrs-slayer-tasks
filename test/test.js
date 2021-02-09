@@ -306,7 +306,7 @@ describe('Blocking and unblocking tasks at Duradel', () => {
         }
     });
 
-    it('shouldn\'t allow blocking more than 5 tasks', () => {
+    it('shouldn\'t allow blocking more than 6 tasks', () => {
         let slayer = new index.Slayer;
         slayer.completedQuests.shiloVillage = true;
         slayer.combatLevel = 126;
@@ -322,22 +322,25 @@ describe('Blocking and unblocking tasks at Duradel', () => {
         slayer.blockTask('suqah');
         slayer.blockTask('ironDragon');
         slayer.blockTask('nechryael');
+        slayer.blockTask('blueDragon');
 
-        expect(slayer.blockedTaskCount).to.equal(5);
+        expect(slayer.blockedTaskCount).to.equal(6);
         expect(slayer.blockList.bloodveld).to.equal(true);
         expect(slayer.blockList.waterfiend).to.equal(true);
         expect(slayer.blockList.suqah).to.equal(true);
         expect(slayer.blockList.ironDragon).to.equal(true);
         expect(slayer.blockList.nechryael).to.equal(true);
+        expect(slayer.blockList.blueDragon).to.equal(true);
 
         slayer.blockTask('steelDragon');
-        expect(slayer.blockedTaskCount).to.equal(5);
+        expect(slayer.blockedTaskCount).to.equal(6);
         expect(slayer.blockList.steelDragon).to.equal(false);
         expect(slayer.blockList.bloodveld).to.equal(true);
         expect(slayer.blockList.waterfiend).to.equal(true);
         expect(slayer.blockList.suqah).to.equal(true);
         expect(slayer.blockList.ironDragon).to.equal(true);
         expect(slayer.blockList.nechryael).to.equal(true);
+        expect(slayer.blockList.blueDragon).to.equal(true);
     });
 
     it('should have task probabilities sum to 1', () => {

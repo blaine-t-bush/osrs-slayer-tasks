@@ -572,7 +572,8 @@ class Slayer {
     };
 
     miscellaneousUnlocks: {
-        ancientCavern: boolean
+        ancientCavern: boolean,
+        lumbridgeEliteDiary: boolean,
     };
 
     blockList: {
@@ -692,6 +693,8 @@ class Slayer {
         zombie: boolean,
     };
 
+    questPoints: number;
+
     ignoreCombatLevelReqs: boolean;
     
     constructor() {
@@ -745,6 +748,7 @@ class Slayer {
 
         this.miscellaneousUnlocks = {
             ancientCavern: false,
+            lumbridgeEliteDiary: false,
         };
 
         this.blockList = {
@@ -863,6 +867,8 @@ class Slayer {
             wyrm: false,
             zombie: false,
         };
+
+        this.questPoints = 0;
 
         this.ignoreCombatLevelReqs = false;
 
@@ -1104,9 +1110,31 @@ class Slayer {
         return blockedTaskCount;
     }
 
+    get availableBlockCount(): number {
+        let availableBlockCount = 0;
+
+        if (this.miscellaneousUnlocks.lumbridgeEliteDiary) {
+            availableBlockCount = 6;
+        } else if (this.questPoints >= 250) {
+            availableBlockCount = 5;
+        } else if (this.questPoints >= 200) {
+            availableBlockCount = 4;
+        } else if (this.questPoints >= 150) {
+            availableBlockCount = 3;
+        } else if (this.questPoints >= 100) {
+            availableBlockCount = 2;
+        } else if (this.questPoints >= 50) {
+            availableBlockCount = 1;
+        } else {
+            availableBlockCount = 0;
+        }
+
+        return availableBlockCount;
+    }
+
     blockTask(monsterId: string): boolean {
         // Verify that block list isn't already full.
-        if (this.blockedTaskCount >= 5) {
+        if (this.blockedTaskCount >= this.availableBlockCount) {
             return false;
         }
 
